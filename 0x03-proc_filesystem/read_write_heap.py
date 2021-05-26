@@ -43,7 +43,7 @@ def parse_maps(pid):
                     _split = line.split()
                     break
             start, end = \
-                 [int(x, 16) for x in _split[0].split("-")]
+                [int(x, 16) for x in _split[0].split("-")]
     except Exception as e:
         print(e)
         exit(1)

@@ -12,14 +12,14 @@ def print_usage():
 
 
 def parse_args():
-    """ returns pid(argv[1]), search_string(argv[1]) and replace_string(argv[3]) """
+    """ returns pid(argv[1]), search_string(argv[1])
+        and replace_string(argv[3]) """
     if len(sys.argv) != 4:
         print_usage()
 
     pid = int(sys.argv[1])
     search_string = (sys.argv[2])
     replace_string = (sys.argv[3])
-
 
     if pid < 1:
         print("pid of the process is less than 1 ")
@@ -32,7 +32,6 @@ def parse_args():
     return(pid, search_string, replace_string)
 
 
-
 def parse_maps(pid):
     """ method that takes 1 patameter (argv[1])
         1: pid of the process """
@@ -43,7 +42,6 @@ def parse_maps(pid):
                 if line.endswith("[heap]\n"):
                     start, end = \
                         [int(x, 16) for x in line.split(" ")[0].split("-")]
-              
     except Exception as e:
         print(e)
         exit(1)
@@ -73,4 +71,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()  
+    main()

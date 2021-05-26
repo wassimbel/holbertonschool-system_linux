@@ -40,12 +40,19 @@ def parse_maps(pid):
         with open("/proc/{}/maps".format(pid), "r") as maps:
             for line in maps:
                 if line.endswith("[heap]\n"):
-                    start, end = \
-                        [int(x, 16) for x in line.split(" ")[0].split("-")]
+                    _split = line.split()
+                    break
+            start, end = \
+                 [int(x, 16) for x in _split[0].split("-")]
     except Exception as e:
         print(e)
         exit(1)
-
+    print("[*]  found heap:")
+    print("\tpathname = [heap]")
+    print("\tadresses = {}".format(_split[0]))
+    print("\tpermissions = {}".format(_split[1]))
+    print("\toffset = {}".format(_split[2]))
+    print("\tinode = {}".format(_split[3]))
     return start, end
 
 

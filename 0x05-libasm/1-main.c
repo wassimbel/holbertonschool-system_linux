@@ -5,9 +5,9 @@
 
 #include "libasm.h"
 
-#define S1  "aa"
+#define S1  "Holberton School"
 #define S2  ""
-#define S3  "azzz"
+#define S3  "Holberton Socool"
 
 /**
  * main - Program entry point
@@ -16,15 +16,10 @@
  */
 int main(void)
 {
-	char *s1 = "a";
-	char *s2 = "z";
-	int i;
-
-    i = asm_strcmp(s1, s2);
+    assert(strcmp(S1, S1) == asm_strcmp(S1, S1));
     assert(strcmp(S1, S2) == asm_strcmp(S1, S2));
     assert(strcmp(S1, S3) == asm_strcmp(S1, S3));
 
-	printf("%d\n", i);
     printf("All good!\n");
     return (EXIT_SUCCESS);
 }

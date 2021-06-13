@@ -9,7 +9,8 @@ section .text
 asm_strcmp:
 	push rbp
 	mov rbp, rsp
-
+	push r8
+	push r9
 	xor rcx, rcx
 strcmp:
 	mov r8b, [rdi + rcx]
@@ -42,6 +43,8 @@ greater:
 	jmp return_
 
 return_:
+	pop r9
+	pop r8
 	pop rcx
 	mov rsp, rbp
 	pop rbp

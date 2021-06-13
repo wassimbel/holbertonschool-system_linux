@@ -35,41 +35,17 @@ str_cmp:
 
 equal:
 	mov rax, 0
-	jmp return
+	jmp return_
 
 less:
 	mov rax, -1
-	jmp return
+	jmp return_
 
 greater:
 	mov rax, 1
-	jmp return
+	jmp return_
 
-
-;str1_ascii:
-;	mov r10b, [r12]
-;	add byte[r11], r10b
-;	cmp r10b, byte 0
-;	je str2_ascii
-;	inc r12
-;	add byte[r11], r10b
-;	jmp str1_ascii
-;
-;str2_ascii:
-;	mov r12b, [r13]
-;	add byte[r13], r12b
-;	cmp r12b, byte 0
-;	je ret_ascii
-;	inc r13
-;	add byte[r13], r12b
-;	jmp str2_ascii
-;
-;ret_ascii:
-;       sub r11, r13
-;	jmp return
-;strcmp returns the ascii difference between s1 and s2 which is different from the current version of my program
-
-return:
+return_:
 	pop r9
 	pop r8
 	pop rcx

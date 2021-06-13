@@ -1,12 +1,12 @@
 BITS 64
 
-	global asm_strcmp
+	global asm_strncmp
 
 
 section .text
 
 
-asm_strcmp:
+asm_strncmp:
 	push rbp
 	mov rbp, rsp
 	push rcx
@@ -20,7 +20,9 @@ asm_strcmp:
 	xor rcx, rcx
 	mov r12, rdi
 	mov r13, rsi
-strcmp:
+strncmp:
+	cmp rcx, rdx
+	je str_cmp
 	mov r8b, [rdi + rcx]
 	mov r9b, [rsi + rcx]
 
@@ -31,7 +33,7 @@ strcmp:
 	cmp r8b, r9b
 	jne str_cmp
 	inc rcx
-	jmp strcmp
+	jmp strncmp
 
 str_cmp:
 	cmp r8b, r9b

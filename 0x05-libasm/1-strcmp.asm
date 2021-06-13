@@ -1,47 +1,40 @@
 BITS 64
 
-	global asm_strcmp
-
+global asm_strcmp
 
 section .text
-
-
 asm_strcmp:
 	push rbp
 	mov rbp, rsp
 	push rcx
+
 	xor rcx, rcx
-strcmp:
+loop_asm_strcmp:
 	mov al, [rdi + rcx]
 	mov bl, [rsi + rcx]
 	test al, al
-	jz str_cmp
+	jz compare
 	test bl, bl
-	jz str_cmp
+	jz compare
 	cmp al, bl
-	jne str_cmp
+	jne compare
 	inc rcx
-	jmp strcmp
-
-str_cmp:
+	jmp loop_asm_strcmp
+compare:
 	cmp al, bl
 	je equal
 	jl less
 	jg greater
-
 equal:
 	mov rax, 0
-	jmp return_
-
+	jmp end
 less:
 	mov rax, -1
-	jmp return_
-
+	jmp end
 greater:
 	mov rax, 1
-	jmp return_
-
-return_:
+	jmp end
+end:
 	pop rcx
 	mov rsp, rbp
 	pop rbp

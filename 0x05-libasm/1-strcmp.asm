@@ -9,18 +9,11 @@ section .text
 asm_strcmp:
 	push rbp
 	mov rbp, rsp
-	push rcx
 
 	push rcx
 	push r8
 	push r9
-	push r10
-	push r11
-	push r12
-	push r13
 	xor rcx, rcx
-	mov r12, rdi
-	mov r13, rsi
 strcmp:
 	mov r8b, [rdi + rcx]
 	mov r9b, [rsi + rcx]
@@ -77,10 +70,6 @@ greater:
 ;strcmp returns the ascii difference between s1 and s2 which is different from the current version of my program
 
 return:
-	pop r13
-	pop r12
-	pop r11
-	pop r10
 	pop r9
 	pop r8
 	pop rcx

@@ -24,7 +24,6 @@ null:
 	mov rax, 0
 
 return:
-	pop rax
 	mov rsp, rbp
 	pop rbp
 	ret

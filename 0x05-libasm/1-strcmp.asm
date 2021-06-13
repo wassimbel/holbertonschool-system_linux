@@ -9,23 +9,22 @@ section .text
 asm_strcmp:
 	push rbp
 	mov rbp, rsp
-	push r8
-	push r9
+	push rcx
 	xor rcx, rcx
 strcmp:
-	mov r8b, [rdi + rcx]
-	mov r9b, [rsi + rcx]
-	cmp r8b, byte 0
+	mov al, [rdi + rcx]
+	mov bl, [rsi + rcx]
+	cmp al, byte 0
 	je str_cmp
-	cmp r9b, byte 0
+	cmp bl, byte 0
 	je str_cmp
-	cmp r8b, r9b
+	cmp al, bl
 	jne str_cmp
 	inc rcx
 	jmp strcmp
 
 str_cmp:
-	cmp r8b, r9b
+	cmp al, bl
 	je equal
 	jl less
 	jg greater
@@ -43,8 +42,6 @@ greater:
 	jmp return_
 
 return_:
-	pop r9
-	pop r8
 	pop rcx
 	mov rsp, rbp
 	pop rbp

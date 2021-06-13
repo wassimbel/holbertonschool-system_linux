@@ -22,6 +22,7 @@ str_chr:
 	jmp return
 null:
 	mov rax, 0
+	jmp return
 
 return:
 	mov rsp, rbp

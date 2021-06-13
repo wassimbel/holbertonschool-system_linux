@@ -14,10 +14,10 @@ asm_strcmp:
 strcmp:
 	mov al, [rdi + rcx]
 	mov bl, [rsi + rcx]
-	cmp al, byte 0
-	je str_cmp
-	cmp bl, byte 0
-	je str_cmp
+	test al, al
+	jz str_cmp
+	test bl, bl
+	jz str_cmp
 	cmp al, bl
 	jne str_cmp
 	inc rcx

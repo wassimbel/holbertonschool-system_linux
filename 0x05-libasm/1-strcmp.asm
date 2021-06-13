@@ -10,14 +10,10 @@ asm_strcmp:
 	push rbp
 	mov rbp, rsp
 
-	push rcx
-	push r8
-	push r9
 	xor rcx, rcx
 strcmp:
 	mov r8b, [rdi + rcx]
 	mov r9b, [rsi + rcx]
-
 	cmp r8b, byte 0
 	je str_cmp
 	cmp r9b, byte 0
@@ -46,8 +42,6 @@ greater:
 	jmp return_
 
 return_:
-	pop r9
-	pop r8
 	pop rcx
 	mov rsp, rbp
 	pop rbp

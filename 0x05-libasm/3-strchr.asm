@@ -6,6 +6,7 @@ section .text
 asm_strchr:
 	push rbp
 	mov rbp, rsp
+	push rax
 
 strchr:
 	mov r8b, [rdi]
@@ -23,6 +24,7 @@ null:
 	mov rax, 0
 
 return:
+	pop rax
 	mov rsp, rbp
 	pop rbp
 	ret

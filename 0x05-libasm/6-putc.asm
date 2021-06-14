@@ -26,9 +26,6 @@ putc:
 
 return:
 	add rsp, 1
-	pop rdx
-	pop rsi
-	pop rdx
 	mov rsp, rbp
 	pop rbp
 	ret

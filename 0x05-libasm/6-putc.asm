@@ -25,7 +25,7 @@ return:
 	add rsp, 1
 	pop rdx
 	pop rsi
-	pop rdx
+	pop rax
 	mov rsp, rbp
 	pop rbp
 	ret

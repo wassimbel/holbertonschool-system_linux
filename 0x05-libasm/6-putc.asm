@@ -16,9 +16,9 @@ putc:
 	mov [rsp], dil
 
 	mov rax, 1
+	mov rsi, rsp
 	mov rdi, 1
 	mov rdx, 1
-	mov rsi, rsp
 	syscall
 
 return:

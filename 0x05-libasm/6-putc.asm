@@ -20,6 +20,9 @@ asm_putc:
 
 return:
 	add rsp, 1
+	pop rdx
+	pop rsi
+	pop rax
 	mov rsp, rbp
 	pop rbp
 	ret

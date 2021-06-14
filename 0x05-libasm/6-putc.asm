@@ -5,13 +5,15 @@ section .text
 asm_putc:
 	push rbp
 	mov rbp, rsp
-
 	push rax
 	push rsi
 	push rdx
-	push rdi
 
+	test rdi, rdi
+	jz return
 putc:
+	add rsp, -1
+	mov [rsp], dil
 
 	mov rax, 1
 	mov rdi, 1
@@ -20,11 +22,10 @@ putc:
 	syscall
 
 return:
-	pop rdi
+	add rsp, 1
 	pop rdx
 	pop rsi
-	pop rax
-
+	pop rdx
 	mov rsp, rbp
 	pop rbp
 	ret

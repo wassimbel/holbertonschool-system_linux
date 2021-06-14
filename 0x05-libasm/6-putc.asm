@@ -8,8 +8,6 @@ asm_putc:
 	push rax
 	push rsi
 	push rdx
-	test rdi, rdi
-	jz return
 
 putc:
 	add rsp, -1

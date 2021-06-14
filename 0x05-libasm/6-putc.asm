@@ -5,13 +5,9 @@ section .text
 asm_putc:
 	push rbp
 	mov rbp, rsp
-	push rax
 	push rsi
 	push rdx
 
-	test rdi, rdi
-	jz return
-put_c:
 	add rsp, -1
 	mov [rsp], dil
 

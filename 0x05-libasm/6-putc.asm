@@ -5,6 +5,7 @@ section .text
 asm_putc:
 	push rbp
 	mov rbp, rsp
+	push rax
 	push rsi
 	push rdx
 

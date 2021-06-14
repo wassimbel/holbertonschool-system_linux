@@ -9,8 +9,6 @@ asm_putc:
 	push rsi
 	push rdx
 
-	test rdi, rdi
-	jz return
 putc:
 	add rsp, -1
 	mov [rsp], dil
@@ -21,11 +19,12 @@ putc:
 	mov rsi, rsp
 	syscall
 
-
-
-
 return:
 	add rsp, 1
+	pop rdx
+	pop rsi
+	pop rax
+
 	mov rsp, rbp
 	pop rbp
 	ret

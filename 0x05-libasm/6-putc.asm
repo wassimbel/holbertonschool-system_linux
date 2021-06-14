@@ -6,7 +6,6 @@ asm_putc:
 	push rbp
 	mov rbp, rsp
 	push rax
-	push rdi
 	push rsi
 	push rdx
 	test rdi, rdi
@@ -26,7 +25,6 @@ return:
 	add rsp, 1
 	pop rdx
 	pop rsi
-	pop rdi
 	pop rax
 
 	mov rsp, rbp

@@ -1,12 +1,11 @@
 BITS 64
 
-	global asm_strcasecmp
-	extern tolower
+	global asm_strncasecmp
 
 section .text
 
 
-asm_strcasecmp:
+asm_strncasecmp:
 	push rbp
 	mov rbp, rsp
 	push rcx
@@ -17,7 +16,9 @@ asm_strcasecmp:
 	xor r8, r8
 	xor r9, r9
 
-strcasecmp:
+strncasecmp:
+	cmp rcx, rdx
+	je return
 	mov r8b, [rdi + rcx]
 	mov r9b, [rsi + rcx]
 
@@ -43,7 +44,7 @@ continue:
 	jz return
 	inc rcx
 	cmp r8b, r9b
-	je strcasecmp
+	je strncasecmp
 	jmp return
 return:
 	mov rax, r8

@@ -38,11 +38,8 @@ next:
 	mov rax, rdi
 	add rax, rcx
 	jmp return
+
 return:
-	pop r9
-	pop r8
-	pop rdx
-	pop rcx
 	mov rsp, rbp
 	pop rbp
 	ret

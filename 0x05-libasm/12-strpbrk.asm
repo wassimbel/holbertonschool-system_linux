@@ -11,6 +11,7 @@ asm_strpbrk:
 	push rdx
 	push r8
 	push r9
+
 	xor rax, rax
 	xor rcx, rcx
 	xor rdx, rdx
@@ -40,6 +41,10 @@ next:
 	jmp return
 
 return:
+	pop r9
+	pop r8
+	prp rdx
+	pop rcx
 	mov rsp, rbp
 	pop rbp
 	ret

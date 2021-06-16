@@ -8,12 +8,10 @@ asm_strpbrk:
 
 	push rax
 	push rcx
-	push rdx
 	push r8
 	push r9
 	xor rax, rax
 	xor rcx, rcx
-	xor rdx, rdx
 	xor r8, r8
 	xor r9, r9
 
@@ -39,7 +37,6 @@ next:
 return:
 	pop r9
 	pop r8
-	pop rdx
 	pop rcx
 	mov rsp, rbp
 	pop rbp

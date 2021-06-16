@@ -24,10 +24,10 @@ asm_strpbrk:
 strpbrk:
 	mov r8b, [rdi + rcx]
 	mov r9b, [rsi + rdx]
-	test r9b, r9b
-	jz increment_rsi
 	test r8b, r8b
 	jz return
+	test r9b, r9b
+	jz increment_rsi
 	cmp r8b, r9b
 	je next
 	inc rdx

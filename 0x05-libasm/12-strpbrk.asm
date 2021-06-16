@@ -13,6 +13,7 @@ asm_strpbrk:
 	push r9
 	xor rax, rax
 	xor rcx, rcx
+	xor rdx, rdx
 	xor r8, r8
 	xor r9, r9
 
@@ -32,6 +33,7 @@ increment_rsi:
 	inc rcx
 	mov rdx, 0
 	jmp strpbrk
+
 next:
 	mov rax, rdi
 	add rax, rcx
@@ -41,7 +43,6 @@ return:
 	pop r8
 	pop rdx
 	pop rcx
-
 	mov rsp, rbp
 	pop rbp
 	ret

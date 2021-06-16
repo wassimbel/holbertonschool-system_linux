@@ -41,8 +41,6 @@ next:
 	jmp return
 
 return:
-	pop r9
-	pop r8
 	prp rdx
 	pop rcx
 	mov rsp, rbp

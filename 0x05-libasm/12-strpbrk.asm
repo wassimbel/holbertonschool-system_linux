@@ -16,6 +16,10 @@ asm_strpbrk:
 	xor rdx, rdx
 	xor r8, r8
 	xor r9, r9
+	test rdi, rdi
+	jz return
+	test rsi, rsi
+	jz return
 
 strpbrk:
 	mov r8b, [rdi + rcx]

@@ -21,5 +21,5 @@ int handle_sigaction(void)
 
 void handler(int signum)
 {
-        printf("Gotcha! [%d]\n", signum);
+	printf("Gotcha! [%d]\n", signum);
 }

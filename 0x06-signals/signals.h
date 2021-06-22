@@ -13,5 +13,5 @@ int handle_sigaction(void);
 void (*current_handler_sigaction(void))(int);
 int trace_signal_sender(void);
 void handler1(int signum, siginfo_t *info, void *ptr);
-
+void handler2(int signum);
 #endif /* SIGNALS_H_ */

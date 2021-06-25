@@ -12,7 +12,7 @@ void all_in_one(void)
 	act.sa_sigaction = handler4;
 	act.sa_flags = SA_SIGINFO;
 
-	for (i = SIGRTMIN; i <= SIGRTMAX; i++)
+	for (i = 1; i <= SIGRTMAX; i++)
 		sigaction(i, &act, NULL);
 }
 

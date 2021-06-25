@@ -15,4 +15,6 @@ int trace_signal_sender(void);
 void handler1(int signum, siginfo_t *info, void *ptr);
 void handler2(int signum);
 int pid_exist(pid_t pid);
+void all_in_one(void);
+void handler4(int signum, siginfo_t *info, void *ptr);
 #endif /* SIGNALS_H_ */

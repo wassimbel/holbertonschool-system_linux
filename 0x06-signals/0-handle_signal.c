@@ -23,4 +23,5 @@ int handle_signal(void)
 void handler(int signum)
 {
 	printf("Gotcha! [%d]\n", signum);
+	fflush(stdout);
 }

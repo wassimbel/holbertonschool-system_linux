@@ -10,6 +10,7 @@
 int sigset_init(sigset_t *set, int *signals)
 {
 	int i;
+
 	if (sigemptyset(set) == -1)
 		return (-1);
 

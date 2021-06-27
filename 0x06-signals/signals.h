@@ -20,4 +20,5 @@ void handler4(int signum, siginfo_t *info, void *ptr);
 int sigset_init(sigset_t *set, int *signals);
 int signals_block(int *signals);
 int signals_unblock(int *signals);
+int handle_pending(void (*handler)(int));
 #endif /* SIGNALS_H_ */

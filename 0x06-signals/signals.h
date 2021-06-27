@@ -19,4 +19,5 @@ void all_in_one(void);
 void handler4(int signum, siginfo_t *info, void *ptr);
 int sigset_init(sigset_t *set, int *signals);
 int signals_block(int *signals);
+int signals_unblock(int *signals);
 #endif /* SIGNALS_H_ */

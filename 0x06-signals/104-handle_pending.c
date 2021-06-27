@@ -14,7 +14,6 @@ int handle_pending(void (*handler)(int))
 	int i;
 
 	act.sa_handler = handler;
-	act.sa_mask = 
 	if (sigpending(&set) == -1)
 		return (-1);
 

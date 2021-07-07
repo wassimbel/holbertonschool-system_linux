@@ -19,6 +19,6 @@ typedef struct cars
 
 void race_state(int *id, size_t size);
 int check_new_car(car_t *cars, int id);
-car_t *add_new_car(car_t **cars, int id);
+car_t *add_new_car(car_t *cars, int id);
 void add_lap(car_t *cars, int id);
 #endif /* _LAPS_H_  */

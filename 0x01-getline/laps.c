@@ -10,15 +10,16 @@
 void race_state(int *id, size_t size)
 {
 	static car_t *cars;
-	car_t *tmp;
+	car_t *tmp, *next;
 	size_t i;
 
 	if (size == 0)
 	{
 		while (cars)
 		{
+			next = cars->next
 			free(cars);
-			cars = cars->next;
+			cars = next;
 		}
 		return;
 	}

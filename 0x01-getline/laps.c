@@ -25,7 +25,7 @@ void race_state(int *id, size_t size)
 	for (i = 0; i < size; i++)
 	{
 		if (check_new_car(cars, id[i]))
-			cars = add_new_car(cars, id[i]);
+			cars = add_new_car(&cars, id[i]);
 		else
 			add_lap(cars, id[i]);
 	}
@@ -41,12 +41,12 @@ void race_state(int *id, size_t size)
  * Return: pointer to cars
  **/
 
-car_t *add_new_car(car_t *cars, int id)
+car_t *add_new_car(car_t **cars, int id)
 {
 	car_t *prev, *tmp, *new_car;
 
 	prev = NULL;
-	tmp = cars;
+	tmp = *cars;
 
 	new_car = (car_t *)malloc(sizeof(car_t));
 
@@ -64,17 +64,17 @@ car_t *add_new_car(car_t *cars, int id)
 			if (prev)
 				prev->next = new_car;
 			else
-				cars = new_car;
+				*cars = new_car;
 			new_car->next = tmp;
-			return (cars);
+			return (*cars);
 		}
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (cars)
+	if (*cars)
 	{
 		prev->next = new_car;
-		return (cars);
+		return (*cars);
 	}
 	return (new_car);
 }

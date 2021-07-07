@@ -43,40 +43,40 @@ void race_state(int *id, size_t size)
 
 car_t *add_new_car(car_t **cars, int id)
 {
-	car_t *prev, *tmp, *new_car;
+	car_t *new_car = NULL;
+	car_t *prev = NULL;
+	car_t *next = NULL;
 
-	prev = NULL;
-	tmp = *cars;
+	if (!cars)
+		return (NULL);
 
-	new_car = (car_t *)malloc(sizeof(car_t));
-
-		if (!new_car)
-			return (NULL);
+	new_car = malloc(sizeof(*new_car));
+	if (!new_car)
+		return (NULL);
 	new_car->id = id;
 	new_car->laps = 0;
 	new_car->next = NULL;
+	next = *cars;
+	printf("Car %i joined the race\n", new_car->id);
 
-	printf("Car %d joined the race\n", new_car->id);
-	while (tmp)
+	if (!*cars)
+		return (new_car);
+	while (prev || next)
 	{
-		if (new_car->id < tmp->id)
+		if ((!prev || prev->id <= id) && (!next || next->id > id))
 		{
-			if (prev)
-				prev->next = new_car;
-			else
+			if (!prev)
 				*cars = new_car;
-			new_car->next = tmp;
-			return (*cars);
+			else
+				prev->next = new_car;
+			new_car->next = next;
 		}
-		prev = tmp;
-		tmp = tmp->next;
+		prev = next;
+		if (next)
+			next = next->next;
 	}
-	if (*cars)
-	{
-		prev->next = new_car;
-		return (*cars);
-	}
-	return (new_car);
+
+	return (*cars);
 }
 
 /**

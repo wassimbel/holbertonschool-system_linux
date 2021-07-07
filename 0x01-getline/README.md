@@ -1,1 +1,1 @@
-#  C - Static variables, getline
+# C - Static variables, getline

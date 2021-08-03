@@ -16,8 +16,8 @@ void print_python_float(PyObject *p)
 		fflush(stdout);
 		return;
 	}
-	str = PyOS_double_to_string(((PyFloatObject *)(p))->ob_fval, 'r', 0,
-			Py_DTSF_ADD_DOT_0, NULL);
+	str = PyOS_double_to_string(((PyFloatObject *)(p))->ob_fval, 'g', 16,
+			0, NULL);
 	printf("  value: %s%s\n", str, strchr(str, '.') ? "" : ".0");
 	fflush(stdout);
 }

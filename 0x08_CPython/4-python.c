@@ -20,8 +20,8 @@ void print_python_string(PyObject *p)
 	else if (PyUnicode_IS_COMPACT(p) && !PyUnicode_IS_ASCII(p))
 		type = "compact unicode object";
 	buff = PyUnicode_AsWideCharString(p, NULL);
-	printf("  type: %s\n"
-			"  length: %ld\n"
-			"  value: %ls\n", type, PyUnicode_GET_LENGTH(p), buff);
+	printf("  type: %s\n", type);
+	printf("  length: %ld\n", PyUnicode_GET_LENGTH(p));
+	printf("  value: %ls\n", buff);
 	fflush(stdout);
 }

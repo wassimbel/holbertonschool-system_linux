@@ -84,4 +84,5 @@ void print_python_list(PyObject *p)
 		else if (PyFloat_Check(ob))
 			print_python_float(ob);
 	}
+	fflush(stdout);
 }

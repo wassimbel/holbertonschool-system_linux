@@ -16,9 +16,9 @@ void print_python_float(PyObject *p)
 		fflush(stdout);
 		return;
 	}
-	str = PyOS_double_to_string(((PyFloatObject *)(p))->ob_fval, 'g', 16,
-			0, NULL);
-	printf("  value: %s%s\n", str, strchr(str, '.') ? "" : ".0");
+	str = PyOS_double_to_string(((PyFloatObject *)(p))->ob_fval, 'r', 0,
+			Py_DTSF_ADD_DOT_0, NULL);
+	printf("  value: %s\n", str);
 	fflush(stdout);
 }
 
@@ -65,7 +65,7 @@ void print_python_list(PyObject *p)
 
 	if (!PyList_Check(p))
 	{
-		printf("  [ERROR] Invalid List Object");
+		printf("  [ERROR] Invalid List Object\n");
 		fflush(stdout);
 		return;
 	}

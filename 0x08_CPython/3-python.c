@@ -9,7 +9,7 @@ void print_python_float(PyObject *p)
 {
 	char *str;
 
-	printf("[.] float object info");
+	printf("[.] float object info\n");
 	if (!PyFloat_Check(p))
 	{
 		printf("  [ERROR] Invalid Float Object");
@@ -70,7 +70,7 @@ void print_python_list(PyObject *p)
 		return;
 	}
 
-	size = ((PyVarObject*)(p))->ob_size;
+	size = ((PyVarObject *)(p))->ob_size;
 	printf("[*] Python list info\n");
 	printf("[*] Size of the Python List = %ld\n", size);
 	printf("[*] Allocated = %ld\n", ((PyListObject *)(p))->allocated);

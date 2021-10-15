@@ -13,6 +13,7 @@ void print_python_int(PyObject *p)
 	uint32_t *array;
 	unsigned long x;
 
+	fflush(stdout);
 	if (PyLong_Check(p))
 	{
 		size = ((PyVarObject *) p)->ob_size;
@@ -30,5 +31,6 @@ void print_python_int(PyObject *p)
 		printf("%lu\n", x);
 	}
 	else
-		printf("Invalid Int Object");
+		printf("Invalid Int Object\n");
+	fflush(stdout);
 }

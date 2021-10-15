@@ -14,7 +14,9 @@ void print_python_int(PyObject *p)
 	unsigned long x;
 
 	fflush(stdout);
-	if (PyLong_Check(p))
+	if (!PyLong_Check(p))
+		printf("Invalid Int Object\n");
+	else
 	{
 		size = ((PyVarObject *) p)->ob_size;
 		array = ((PyLongObject *) p)->ob_digit;
@@ -30,7 +32,5 @@ void print_python_int(PyObject *p)
 			putchar('-');
 		printf("%lu\n", x);
 	}
-	else
-		printf("Invalid Int Object\n");
 	fflush(stdout);
 }

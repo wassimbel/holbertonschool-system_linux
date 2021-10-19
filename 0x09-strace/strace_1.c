@@ -23,28 +23,6 @@ int sys_call(pid_t pid)
 }
 
 /**
- * tracer - traces process and prints syscall number
- * @pid: id of process to trace
- */
-void tracer(pid_t pid)
-{
-	int status;
-
-	setbuf(stdout, NULL);
-	waitpid(pid, &status, 0);
-	ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_TRACESYSGOOD);
-	while (1)
-	{
-		if (!sys_call(pid))
-			break;
-		printf("%li\n", ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * ORIG_RAX));
-		if (!sys_call(pid))
-			break;
-	}
-}
-
-
-/**
  * attach - attach tracer process to specified tracee
  * @args: pointer to array of arguments
  * Return: return -1 on failure

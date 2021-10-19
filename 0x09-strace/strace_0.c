@@ -56,44 +56,23 @@ int attach(char *args[])
 	return (execvp(*args, args));
 }
 
-/**
- * parse_args - check for usage args
- * @argc: number of arguments
- * @argv: pointer to array of argv
- * Return: 0 on success, 1 on error
- */
-
-int parse_args(int argc, char *argv[])
-{
-	struct stat sb;
-
-	if (argc < 2)
-	{
-		fprintf(stderr, "%s command [args...]\n", *argv);
-		return (1);
-	}
-	if (stat(argv[1], &sb) == -1)
-	{
-		fprintf(stderr, "%s: Can't stat '%s': No such file or directory\n",
-				*argv, argv[1]);
-		return (1);
-	}
-	return (0);
-}
 
 /**
  * main - entry point
  * @argc: number args
  * @argv: pointer to array of argv
- * Return: 0 on success otherwise 1
+ * Return: 0 on success otherwise EXIT_FAILURE
  */
 
 int main(int argc, char *argv[])
 {
 	pid_t pid;
 
-	if (parse_args(argc, argv))
-		return (1);
+	if (argc < 2)
+	{
+		fprintf(stderr, "%s command [args...]\n", argv[0]);
+		return (EXIT_FAILURE);
+	}
 
 	pid = fork();
 

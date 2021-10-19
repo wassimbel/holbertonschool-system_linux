@@ -6,8 +6,9 @@ OBJS = $(patsubst %.c, %.o, $(SRC))
 0 = $(patsubst %.c, %.o, $(wildcard *_0.c))
 1 = $(patsubst %.c, %.o, $(wildcard *_1.c))
 2 = $(patsubst %.c, %.o, $(wildcard *_2.c))
+3 = $(patsubst %.c, %.o, $(wildcard *_3.c))
 
-.PHONY: strace_0 strace_1 strace_2.c clean
+.PHONY: strace_0 strace_1 strace_2.c strace_3.c clean
 
 strace_0: $(0)
 	$(CC) $(CFLAGS) $(0) -o strace_0
@@ -17,5 +18,8 @@ strace_1: $(1)
 
 strace_2: $(2)
 	$(CC) $(CFLAGS) $(2) -o strace_2
+
+strace_3: $(3)
+	$(CC) $(CFLAGS) $(3) -o strace_3
 clean:
 	rm -f $(OBJS) strace_*

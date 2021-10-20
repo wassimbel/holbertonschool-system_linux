@@ -90,7 +90,7 @@ int tracer(pid_t pid, int argc, char *argv[], char *envp[])
 		return (1);
 	ptrace(PTRACE_GETREGS, child, 0, &reg);
 	if (!sys_call(pid))
-                return (1);
+		return (1);
 	retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);
 	fprintf(stdout, "execve(\"%s\", [", argv[0]);
 	for (i = 0; i < argc; ++i)
@@ -143,6 +143,6 @@ int main(int argc, char *argv[], char *envp[])
 		kill(getpid(), SIGSTOP);
 		return (execve(argv[0], argv, envp));
 	}
-	tracer(pid, argc, argv, envp);
-	return (0);
+	else
+	return (tracer(pid, argc, argv, envp));
 }

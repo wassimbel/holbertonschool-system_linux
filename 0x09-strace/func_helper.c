@@ -46,22 +46,31 @@ void print_retval(struct user_regs_struct reg, long retval)
 	{
 	case INT:
 		fprintf(stdout, "%s%d\n", s, (int)retval);
+		break;
 	case SIZE_T:
 		fprintf(stdout, "%s%lu\n", s, (ulong)retval);
+		break;
 	case SSIZE_T:
 		fprintf(stdout, "%s%ld\n", s, (long)retval);
+		break;
 	case LONG:
 		fprintf(stdout, "%s%ld\n", s, (long)retval);
+		break;
 	case U64:
 		fprintf(stdout, "%s%lu\n", s, (ulong)retval);
+		break;
 	case UINT32_T:
 		fprintf(stdout, "%s%lu\n", s, (ulong)retval);
+		break;
 	case UNSIGNED_INT:
 		fprintf(stdout, "%s%u\n", s, (uint)retval);
+		break;
 	case UNSIGNED_LONG:
 		fprintf(stdout, "%s%lu\n", s, (ulong)retval);
+		break;
 	case PID_T:
 		fprintf(stdout, "%s%d\n", s, (int)retval);
+		break;
 	default:
 		fprintf(stdout, "%s%#lx\n", s, retval);
 }

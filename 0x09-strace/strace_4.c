@@ -23,19 +23,6 @@ int sys_call(pid_t pid)
 }
 
 /**
- * attach - attach tracer process to specified tracee
- * @args: pointer to array of arguments
- * Return: return -1 on failure
- */
-int attach(char *args[])
-{
-	if (ptrace(PTRACE_TRACEME) == -1)
-		return (-1);
-	kill(getpid(), SIGSTOP);
-	return (execvp(*args, args));
-}
-
-/**
  * print_register - print register
  * @reg: registers struct
  * @i: index
@@ -140,10 +127,16 @@ int main(int argc, char *argv[], char *envp[])
 	}
 
 	pid = fork();
+	argv++;
+	argc--;
 	if (pid < 0)
 		return (1);
 	if (!pid)
-		return (attach(argv + 1) == -1);
+	{
+		ptrace(PTRACE_TRACEME);
+		kill(getpid(), SIGSTOP);
+		return (execve(argv[0], argv, envp));
+	}
 	tracer(pid, argc, argv, envp);
 	return (0);
 }

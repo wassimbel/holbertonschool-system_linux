@@ -88,7 +88,7 @@ int tracer(pid_t pid, int argc, char *argv[], char *envp[])
 	ptrace(PTRACE_SETOPTIONS, pid, NULL, PTRACE_O_TRACESYSGOOD);
 	if (!sys_call(pid))
 		return (1);
-	ptrace(PTRACE_GETREGS, child, 0, &reg);
+	ptrace(PTRACE_GETREGS, pid, 0, &reg);
 	if (!sys_call(pid))
 		return (1);
 	retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);

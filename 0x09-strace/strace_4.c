@@ -18,8 +18,9 @@ int sys_call(pid_t pid)
 		if (WIFSTOPPED(status) && WSTOPSIG(status) & 0x80)
 			return (1);
 		if (WIFEXITED(status))
-			return (0);
+			break;
 	}
+	return (0);
 }
 
 /**
@@ -85,6 +86,11 @@ int tracer(pid_t pid, int argc, char *argv[], char *envp[])
 	setbuf(stdout, NULL);
 	waitpid(pid, &status, 0);
 	ptrace(PTRACE_SETOPTIONS, pid, NULL, PTRACE_O_TRACESYSGOOD);
+	if (!sys_call(pid))
+		return (1);
+	ptrace(PTRACE_GETREGS, child, 0, &reg);
+	if (!sys_call(pid))
+                return (1);
 	retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);
 	fprintf(stdout, "execve(\"%s\", [", argv[0]);
 	for (i = 0; i < argc; ++i)

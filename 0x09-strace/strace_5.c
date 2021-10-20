@@ -48,6 +48,24 @@ void print_register(struct user_regs_struct reg,
 			fprintf(stdout, "%s\"%s\"", s, str);
 			free(str);
 		}
+		else if (syscalls_64_g[reg.orig_rax].params[i] == INT)
+			fprintf(stdout, "%s%d", s, (int)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == LONG)
+			fprintf(stdout, "%s%ld", s, (long)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == SIZE_T)
+			fprintf(stdout, "%s%lu", s, (ulong)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == SSIZE_T)
+			fprintf(stdout, "%s%ld", s, (long)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == U64)
+			fprintf(stdout, "%s%lu", s, (ulong)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == UINT32_T)
+			fprintf(stdout, "%s%lu", s, (ulong)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == UNSIGNED_INT)
+			fprintf(stdout, "%s%u", s, (uint)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == UNSIGNED_LONG)
+			fprintf(stdout, "%s%lu", s, (ulong)r);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == PID_T)
+			fprintf(stdout, "%s%d", s, (int)r);
 		else
 			fprintf(stdout, "%s%#lx", s, r);
 	}
@@ -108,7 +126,7 @@ int tracer(pid_t pid, int argc, char *argv[], char *envp[])
 		if (!sys_call(pid))
 			break;
 		retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);
-		fprintf(stdout, ") = %#lx\n", retval);
+		print_retval(reg, retval);
 	}
 	fprintf(stdout, ") = ?\n");
 	return (0);

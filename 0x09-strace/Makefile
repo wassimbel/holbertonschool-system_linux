@@ -3,11 +3,13 @@ CFLAGS = -Wall -Werror -Wextra -pedantic
 
 SRC = $(wildcard *.c)
 OBJS = $(patsubst %.c, %.o, $(SRC))
+HELPER = $(patsubst %.c, %.o, func_helper.c)
 0 = $(patsubst %.c, %.o, $(wildcard *_0.c))
 1 = $(patsubst %.c, %.o, $(wildcard *_1.c))
 2 = $(patsubst %.c, %.o, $(wildcard *_2.c))
 3 = $(patsubst %.c, %.o, $(wildcard *_3.c))
-4 = $(patsubst %.c, %.o, $(wildcard *_4.c))
+4 = $(patsubst %.c, %.o, $(wildcard *_4.c)) $(HELPER)
+
 .PHONY: strace_0 strace_1 strace_2.c strace_3.c strace_4.c clean
 
 strace_0: $(0)

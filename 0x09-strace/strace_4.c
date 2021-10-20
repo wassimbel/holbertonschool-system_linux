@@ -41,16 +41,25 @@ int attach(char *args[])
  * @i: index
  * @r: register
  * @s: char
+ * @pid: id of the process
 */
 
 void print_register(struct user_regs_struct reg,
-		    int i, ulong r, char *s)
+		    int i, ulong r, char *s, pid_t pid)
 {
+	char *str;
+
 	if (syscalls_64_g[reg.orig_rax].params[i] != (type_t)-1 &&
 	    syscalls_64_g[reg.orig_rax].params[i] != VOID)
 	{
 		if (syscalls_64_g[reg.orig_rax].params[i] == VARARGS)
 			fprintf(stdout, "%s...", s);
+		else if (syscalls_64_g[reg.orig_rax].params[i] == CHAR_P)
+		{
+			str = str_read(pid, r);
+			fprintf(stdout, "%s\"%s\"", s, str);
+			free(str);
+		}
 		else
 			fprintf(stdout, "%s%#lx", s, r);
 	}
@@ -59,42 +68,54 @@ void print_register(struct user_regs_struct reg,
 /**
  * print_args - print arguments to syscalls
  * @reg: registers struct
+ * @pid: id of the process
 */
-void print_args(struct user_regs_struct reg)
+void print_args(struct user_regs_struct reg, pid_t pid)
 {
-	print_register(reg, 0, reg.rdi, "");
-	print_register(reg, 1, reg.rsi, ", ");
-	print_register(reg, 2, reg.rdx, ", ");
-	print_register(reg, 3, reg.r10, ", ");
-	print_register(reg, 4, reg.r8, ", ");
-	print_register(reg, 5, reg.r9, ", ");
+	print_register(reg, 0, reg.rdi, "", pid);
+	print_register(reg, 1, reg.rsi, ", ", pid);
+	print_register(reg, 2, reg.rdx, ", ", pid);
+	print_register(reg, 3, reg.r10, ", ", pid);
+	print_register(reg, 4, reg.r8, ", ", pid);
+	print_register(reg, 5, reg.r9, ", ", pid);
 }
 
 /**
- * tracer - prints syscall name and its value
+ * tracer - prints syscall name and its return value
  * @pid: id of the process
+ * @argc: number args
+ * @argv: pointer to array of argv
+ * @envp: pointer to environment variables
  * Return: returns 0 on success
  */
 
-int tracer(pid_t pid)
+int tracer(pid_t pid, int argc, char *argv[], char *envp[])
 {
-	int status;
+	int status, i;
 	struct user_regs_struct reg;
+	long retval;
 
 	setbuf(stdout, NULL);
 	waitpid(pid, &status, 0);
 	ptrace(PTRACE_SETOPTIONS, pid, NULL, PTRACE_O_TRACESYSGOOD);
+	retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);
+	fprintf(stdout, "execve(\"%s\", [", argv[0]);
+	for (i = 0; i < argc; ++i)
+		printf("%s\"%s\"", i == 0 ? "" : ", ", argv[i]);
+	for (i = 0; envp[i]; ++i)
+		;
+	printf("], [/* %d vars */]) = %#lx\n", i, retval);
 	while (1)
 	{
 		if (!sys_call(pid))
 			break;
 		ptrace(PTRACE_GETREGS, pid, NULL, &reg);
 		fprintf(stdout, "%s(", syscalls_64_g[reg.orig_rax].name);
-		print_args(reg);
+		print_args(reg, pid);
 		if (!sys_call(pid))
 			break;
-		ptrace(PTRACE_GETREGS, pid, NULL, &reg);
-		fprintf(stdout, ") = %#lx\n", (ulong)reg.rax);
+		retval = ptrace(PTRACE_PEEKUSER, pid, sizeof(long) * RAX);
+		fprintf(stdout, ") = %#lx\n", retval);
 	}
 	fprintf(stdout, ") = ?\n");
 	return (0);
@@ -104,10 +125,11 @@ int tracer(pid_t pid)
  * main - entry point
  * @argc: number args
  * @argv: pointer to array of argv
+ * @envp: pointer to environment variables
  * Return: 0 on success otherwise EXIT_FAILURE
  */
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[])
 {
 	pid_t pid;
 
@@ -122,6 +144,6 @@ int main(int argc, char *argv[])
 		return (1);
 	if (!pid)
 		return (attach(argv + 1) == -1);
-	tracer(pid);
+	tracer(pid, argc, argv, envp);
 	return (0);
 }
